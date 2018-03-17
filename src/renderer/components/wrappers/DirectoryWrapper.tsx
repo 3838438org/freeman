@@ -4,7 +4,7 @@ import { HotKeys } from "react-hotkeys";
 import ScrollArea from "react-scrollbar/dist/no-css";
 import SplitPane from "react-split-pane";
 
-import { DirectoryList, PathPanel } from "components/panels";
+import { DirectoryHeader, DirectoryList, PathPanel } from "components/panels";
 import { TerminalWrapper } from "components/wrappers";
 import { IHandlers } from "models";
 import { IIntegratedTerminal, IntegratedTerminal } from "objects";
@@ -75,13 +75,6 @@ class DirectoryWrapper extends React.Component<IDirectoryWrapperProps, IDirector
             display: this.state.isTerminalOpen ? "block" : "none"
         };
 
-        const splitPaneStyle: React.CSSProperties = {
-            fontStyle: "italic",
-            height: "auto",
-            padding: "0.3em 0 0.3em 16px",
-            position: "relative"
-        };
-
         return <HotKeys handlers={this.handlers} className="HotKeys">
             <div className="DirectoryWrapper">
                 <PathPanel path={this.state.path} theme={this.props.theme} />
@@ -92,15 +85,7 @@ class DirectoryWrapper extends React.Component<IDirectoryWrapperProps, IDirector
                         resizerStyle={resizerStyle}
                         onDragFinished={this.storeDirectoryListHeight}>
                         <div className="scrollAreaWrapper">
-                            <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
-                                <SplitPane style={splitPaneStyle}>
-                                    <div>Name</div>
-                                    <SplitPane>
-                                        <div>Size</div>
-                                        <div>Modified on</div>
-                                    </SplitPane>
-                                </SplitPane>
-                            </div>
+                            <DirectoryHeader />
                             <div style={{ overflow: "hidden" }}>
                                 <ScrollArea
                                     horizontal={false}
