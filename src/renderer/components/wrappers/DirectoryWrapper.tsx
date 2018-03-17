@@ -87,10 +87,51 @@ class DirectoryWrapper extends React.Component<IDirectoryWrapperProps, IDirector
             position: "relative"
         };
 
-        return <HotKeys
-            handlers={this.handlers}>
+        return <HotKeys handlers={this.handlers} className="HotKeys">
             <div className="DirectoryWrapper">
                 <PathPanel path={this.state.path} theme={this.props.theme} />
+                <div className="splitPaneWrapper">
+                    <SplitPane
+                        split="horizontal"
+                        size={directoryListHeight}
+                        resizerStyle={resizerStyle}
+                        onDragFinished={this.storeDirectoryListHeight}>
+                        <div style={{ width: "100%", display: "grid" }}>
+                            <div style={{ gridArea: "1 / 1 / 2 / 2" }}>
+                                <SplitPane style={splitPaneStyle}>
+                                    <div>Name</div>
+                                    <SplitPane>
+                                        <div>Size</div>
+                                        <div>Modified on</div>
+                                    </SplitPane>
+                                </SplitPane>
+                            </div>
+                            <ScrollArea
+                                className="directoryScrollArea"
+                                horizontal={false}
+                                style={{ backgroundColor: this.props.theme.primaryBackgroundColour }}
+                                verticalContainerStyle={scrollAreaVertContainerStyle}
+                                verticalScrollbarStyle={scrollAreaVertBarStyle}>
+                                <DirectoryList
+                                    ref={directoryList => this.directoryList = directoryList}
+                                    id={this.props.id}
+                                    path={this.state.path}
+                                    isSelectedPane={this.props.isSelectedPane}
+                                    sendSelectedPaneUp={this.props.sendSelectedPaneUp}
+                                    sendPathUp={this.updatePath}
+                                    directoryManager={this.props.directoryManager}
+                                    statusNotifier={this.props.statusNotifier}
+                                    settingsManager={this.props.settingsManager}
+                                    theme={this.props.theme} />
+                            </ScrollArea>
+                        </div>
+                        <div />
+                    </SplitPane>
+                </div>
+            </div>
+        </HotKeys>;
+
+        /*return <HotKeys
                 <div className="splitPaneWrapper">
                     <SplitPane
                         split="horizontal"
@@ -136,7 +177,7 @@ class DirectoryWrapper extends React.Component<IDirectoryWrapperProps, IDirector
                     </SplitPane>
                 </div>
             </div>
-        </HotKeys>;
+        </HotKeys>;*/
     }
 
     /** Stores the last height of the integrated terminal. */

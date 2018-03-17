@@ -1,23 +1,18 @@
 .DirectoryWrapper {
-    height: 100%;
+    display: grid;
     width: 100%;
-    position: absolute;
+    height: 100%;
 
     .splitPaneWrapper {
-        position: absolute;
-        height: 93vh;
-        width: 100%;
-
-        .scrollAreaWrapper {
-            width: 100%;
+        grid-area: 2 / 1 / 101 / 2;
+        position: relative;
 
             .directoryScrollArea {
-                width: 100%;
-                height: 100%;
+                grid-area: 2 / 1 / 51 / 2;
+                overflow: hidden;
             }
 
             .scrollbar-container {
-                position: absolute;
                 background-color: inherit;
 
                 &.vertical {
@@ -25,6 +20,5 @@
                     top: 0;
                 }
             }
-        }
     }
 }
