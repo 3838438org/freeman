@@ -7,9 +7,29 @@
         grid-area: 2 / 1 / 101 / 2;
         position: relative;
 
-            .directoryScrollArea {
-                grid-area: 2 / 1 / 51 / 2;
+        .scrollAreaWrapper {
+            width: 100%;
+            display: grid;
+            align-content: start;
+
+            .scrollarea {
                 overflow: hidden;
+                position: relative;
+                height: 100%;
+
+                .scrollarea-content {
+                    position: relative;
+                }
+
+                .scrollbar-container {
+                    position: absolute;
+                    background: inherit;
+                    width: 0.9em;
+
+                    &vertical .scrollbar {
+                        width: 100%;
+                    }
+                }
             }
 
             .scrollbar-container {
@@ -20,5 +40,6 @@
                     top: 0;
                 }
             }
+        }
     }
 }
